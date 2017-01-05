@@ -4,9 +4,11 @@
             <div class="col-s-12">
                 Homepage!!!!!!!!
 
+                <h1>A great list of todo's</h1>
                 <ul>
-                    <li v-for="todo in todos">
-                        {{ todo.text }}
+                    <li v-for="(todo, index) in todos">
+                        <span>{{ todo.text }}</span>
+                        <button @click="finaliseTodo(index)">Done</button>
                     </li>
                 </ul>
 
@@ -26,6 +28,11 @@ export default {
     computed: {
         todos() { return this.$store.state.todos }
     },
+    methods: {
+        finaliseTodo(i) {
+            this.$store.dispatch('finaliseTodo', i)
+        }
+    },
     preFetch: getTodos,
     beforeMount() {
         getTodos(this.$store)
@@ -36,5 +43,5 @@ export default {
 
 <style lang="stylus">
 .container
-    background-color: #a3a3a3
+    padding: 20px
 </style>

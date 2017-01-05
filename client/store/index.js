@@ -11,15 +11,15 @@ const store = new Vuex.Store({
     actions: {
         getTodos: ({ commit }) => {
             // do API call to get the todos
-            const todos = {
-                1: { text: 'Go get some groceries' , done: false },
-                2: { text: 'Go make some money' , done: false }
-            }
+            const todos = [
+                { id: 1, text: 'Go get some groceries' , done: false },
+                { id: 2, text: 'Go make some money' , done: false }
+            ]
             commit('SET_TODOS', todos)
         },
-        removeTodo: ({ commit }, id) => {
+        finaliseTodo: ({ commit }, index) => {
             return new Promise((resolve, reject) => {
-                commit('DELETE_TODO', id)
+                commit('DELETE_TODO', index)
                 resolve()
             })
         }
@@ -29,8 +29,8 @@ const store = new Vuex.Store({
         SET_TODOS: (state, todos) => {
             state.todos = todos
         },
-        DELETE_TODO: (state, id) => {
-            delete state.todos[id]
+        DELETE_TODO: (state, index) => {
+            state.todos.splice(index, 1)
         }
     }
 })
